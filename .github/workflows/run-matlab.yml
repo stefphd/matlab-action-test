@@ -24,3 +24,11 @@ jobs:
         uses: matlab-actions/run-command@v2
         with:
           command: run('script.m')
+
+      # Step 4: Echo diary contents to the GitHub Actions console
+      - name: Print MATLAB diary to console
+        shell: pwsh
+        run: |
+          Write-Host "========== MATLAB Output =========="
+          Get-Content diary.txt
+          Write-Host "==================================="
