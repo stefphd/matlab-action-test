@@ -5,10 +5,10 @@ void mexFunction(int nlhs, mxArray *plhs[],
                  int nrhs, const mxArray *prhs[])
 {
     if (nrhs != 2) {
-        mexErrMsgIdAndTxt("mymex:args", "Two inputs required.");
+        mexErrMsgIdAndTxt("sumScalar:args", "Two inputs required.");
     }
     if (!mxIsDouble(prhs[0]) || !mxIsDouble(prhs[1])) {
-        mexErrMsgIdAndTxt("mymex:types", "Inputs must be double.");
+        mexErrMsgIdAndTxt("sumScalar:types", "Inputs must be double.");
     }
 
     double a = mxGetScalar(prhs[0]);
