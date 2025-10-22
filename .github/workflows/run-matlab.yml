@@ -8,7 +8,10 @@ on:
 
 jobs:
   run-matlab:
-    runs-on: windows-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
 
     steps:
       # Step 1: Checkout repository
@@ -19,16 +22,20 @@ jobs:
       - name: Set up MATLAB
         uses: matlab-actions/setup-matlab@v2
 
-      # Step 3: Run a MATLAB script
+      # Step 3: Build MEX
+      - name: Configure CMake
+        run: cmake -S . -B build
+
+      - name: Build
+        run: cmake --build build --config Release
+      
+      - name: Install
+        run: cmake --install build --prefix ./
+
+      # Step 4: Run a MATLAB script
       - name: Run MATLAB script
         uses: matlab-actions/run-command@v2
         with:
-          command: run('script.m')
-
-      # Step 4: Echo diary contents to the GitHub Actions console
-      - name: Print MATLAB diary to console
-        shell: pwsh
-        run: |
-          Write-Host "========== MATLAB Output =========="
-          Get-Content diary.txt
-          Write-Host "==================================="
+          command: |
+            cd('bin'); 
+            run('testSumScalar.m')
