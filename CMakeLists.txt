@@ -13,8 +13,8 @@ if(APPLE)
     # https://it.mathworks.com/matlabcentral/answers/2044762-why-do-i-receive-a-library-not-loaded-rpath-libmatlabengine-dylib-error-when-running-a-mex-funct  
 	set(MEX_RPATH "@executable_path/../extern/bin/maci64;@executable_path/../extern/bin/maca64;@executable_path/../../extern/bin/maci64;@executable_path/../../extern/bin/maca64")
 	set_target_properties(sumScalar PROPERTIES 
-                BUILD_RPATH "${CMAKE_BUILD_RPATH};${MEX_RPATH}"
-                INSTALL_RPATH "${CMAKE_INSTALL_RPATH};${MEX_RPATH}"
+                BUILD_RPATH "${MEX_RPATH};${CMAKE_BUILD_RPATH}"
+                INSTALL_RPATH "${MEX_RPATH};${CMAKE_INSTALL_RPATH}"
         )
 endif()
 
